@@ -1,0 +1,64 @@
+<div class="sidebar">
+  <app-sidebar-header></app-sidebar-header>
+  <app-sidebar-form></app-sidebar-form>
+  <nav class="sidebar-nav">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard']"><i class="icon-speedometer"></i> Dashboard <span class="badge badge-info">NEW</span></a>
+      </li>
+      <li class="divider"></li>
+      <li class="nav-title">
+        Booking
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/widgets']"><i class="icon-calculator"></i> Spot</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/widgets']"><i class="icon-calculator"></i> Forward</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/widgets']"><i class="icon-calculator"></i> NDF</a>
+      </li>
+      <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+        <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-layers"></i> Options</a>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['/uikits/invoicing/invoice']"><i class="icon-speech"></i> Vanilla</a>
+          </li>
+        </ul>
+        <ul class="nav-dropdown-items">
+          <li class="nav-item nav-dropdown" routerLinkActive="open" appNavDropdown>
+            <a class="nav-link nav-dropdown-toggle" href="#" appNavDropdownToggle><i class="icon-speech"></i> Exotics</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['/uikits/email/inbox']"><i class="icon-speech"></i> Digital</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['/uikits/email/message']"><i class="icon-speech"></i> Barrier</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['/uikits/email/compose']"><i class="icon-speech"></i> Double Barrier</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['/uikits/email/compose']"><i class="icon-speech"></i> Digital Barrier</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['/uikits/email/compose']"><i class="icon-speech"></i> Multi Barrier</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="divider m-2"></li>
+      <li class="nav-title">
+        Reporting
+      </li>
+      <li class="divider m-2"></li>
+      <li class="nav-title">
+        Admin
+      </li>
+    </ul>
+  </nav>
+  <app-sidebar-footer></app-sidebar-footer>
+  <app-sidebar-minimizer></app-sidebar-minimizer>
+</div>
