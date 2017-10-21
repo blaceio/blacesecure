@@ -5,7 +5,6 @@ import * as moment from 'moment';
 
 import { DataalertService } from 'app/shared/dataalert/dataalert.service';
 import { CurveOrder } from 'app/shared/http/curveorder';
-import { OrderService } from 'app/shared/order/order.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -22,7 +21,7 @@ export class DashboardComponent implements OnInit {
     private totalmanual: number;
     private totalfix: number;
 
-    constructor(private dataalertservice: DataalertService, private orderservice: OrderService) { }
+    constructor(private dataalertservice: DataalertService) { }
 
     ngOnInit() {
 
@@ -31,16 +30,9 @@ export class DashboardComponent implements OnInit {
         this.totalmatched = 0.;
         this.totalunmatched = 0.;
 
-        let start = moment().startOf('day').toDate();
-        var end = moment().endOf('day').toDate();
-
         this.dataalertservice.getTodaysOrders().subscribe(todaysorders => { this.reacttodays(todaysorders) });
         this.dataalertservice.getOrders().subscribe(orders => { this.react(orders) });
         this.dataalertservice.getUnmatchedOrders().subscribe(unmatchedorders => { this.reactunmatched(unmatchedorders) });
-
-        this.orderservice.gettodaysorders("", start, end);
-        this.orderservice.getorders("", start, end);
-        this.orderservice.getunmatchedorders("", start, end);
     }
 
     private react(orders: any) {

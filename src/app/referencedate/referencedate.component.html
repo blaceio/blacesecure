@@ -1,0 +1,11 @@
+<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+    <i class="icon-calendar" aria-hidden="true" alt=""></i>
+  <span class="d-md-down-none"></span>
+</a>
+<div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+    <div class="dropdown-header text-center"><strong>Reference Date</strong></div>
+    <a class="dropdown-item" (click)="today()"><i class="icon-clock"></i> Today</a>
+    <a class="dropdown-item" (click)="yesterday()"><i class="icon-action-redo"></i> Yesterday</a>
+    <a class="dropdown-item" (click)="thisweek()"><i class="icon-share-alt"></i> This Week</a>
+    <a class="dropdown-item" (click)="thismonth()"><i class="icon-share-alt"></i> This Month</a>
+</div>

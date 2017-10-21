@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from "ngx-bootstrap";
 
 import { MomentModule } from 'angular2-moment';
 
@@ -75,6 +76,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './alert/alert.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReferencedateComponent } from './referencedate/referencedate.component';
 
 @NgModule({
   imports: [
@@ -88,7 +90,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpModule,
     FormsModule,
     ToasterModule,
-    MomentModule
+    MomentModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -97,7 +100,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ...APP_DIRECTIVES,
     LoginComponent,
     AlertComponent,
-    DashboardComponent
+    DashboardComponent,
+    ReferencedateComponent
   ],
   providers: [{
     provide: LocationStrategy,
