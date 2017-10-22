@@ -15,8 +15,8 @@ export class DashboardComponent implements OnInit {
     constructor( private dataalertservice: DataalertService, private orderservice: OrderService) { }
 
     ngOnInit() {
-        this.dataalertservice.getOrders().subscribe(orders => {this.react(orders)});
-        this.orderservice.getorders("", new Date(), new Date());
+        //this.dataalertservice.getOrders().subscribe(orders => {this.react(orders)});
+        //this.orderservice.getorders("", new Date(), new Date());
     }
 
     private react(orders: any) {

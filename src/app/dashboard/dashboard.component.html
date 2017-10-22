@@ -5,6 +5,7 @@
         <div class="card">
           <div class="card-header">
             Orders {{daterange.description}} 
+            <p class="text-danger" *ngIf="totalunmatched > 0">Please note the unmatched orders are <strong>not</strong> included in the P&amp;L summaries.</p>
           </div>
           <div class="card-block">
               <div class="row">
@@ -83,6 +84,7 @@
                   <th>Notional</th>
                   <th>Client Leg</th>
                   <th>Curve Leg</th>
+                  <th>Profit</th>
                 </tr>
               </thead>
               <tbody>
@@ -100,7 +102,7 @@
                   <td>
                       <div class="small text-muted">Traded through FlexTrade</div>
                       <strong>{{order.tradedate | amCalendar}}</strong>
-                    </td>
+                  </td>
                   <td>
                       <div>{{order.client}}</div>
                   </td>
@@ -119,6 +121,10 @@
                   <td>
                       <div *ngIf="order.execleg.buy">Curve <strong>Buys</strong> @ <strong>{{order.execleg.price}}</strong></div>
                       <div *ngIf="!order.execleg.buy">Curve <strong>Sells</strong> @ <strong>{{order.execleg.price}}</strong></div>
+                  </td>
+                  <td>
+                      <div class="small text-muted">1500 CHF converted @ 1.876</div>
+                      <strong>1000</strong>
                   </td>
                 </tr>
               </tbody>
