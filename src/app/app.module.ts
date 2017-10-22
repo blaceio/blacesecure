@@ -5,6 +5,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from "ngx-bootstrap";
+import { TypeaheadModule } from "ngx-bootstrap/typeahead";
 
 import { MomentModule } from 'angular2-moment';
 
@@ -14,6 +15,7 @@ import { AuthGuard, OktaAuthWrapper, AlertService } from 'app/shared';
 
 import { StaticDataService } from 'app/shared/static/static.service';
 import { DataalertService } from 'app/shared/dataalert/dataalert.service';
+import { DatealertService } from 'app/shared/datealert/datealert.service';
 import { OrderService } from 'app/shared/order/order.service';
 import { OAuthModule } from 'angular-oauth2-oidc';
 
@@ -77,6 +79,7 @@ import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './alert/alert.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReferencedateComponent } from './referencedate/referencedate.component';
+import { ClientsummaryComponent } from './clientsummary/clientsummary.component';
 
 @NgModule({
   imports: [
@@ -91,7 +94,8 @@ import { ReferencedateComponent } from './referencedate/referencedate.component'
     FormsModule,
     ToasterModule,
     MomentModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -101,7 +105,8 @@ import { ReferencedateComponent } from './referencedate/referencedate.component'
     LoginComponent,
     AlertComponent,
     DashboardComponent,
-    ReferencedateComponent
+    ReferencedateComponent,
+    ClientsummaryComponent
   ],
   providers: [{
     provide: LocationStrategy,
@@ -112,7 +117,8 @@ import { ReferencedateComponent } from './referencedate/referencedate.component'
   AlertService,
   DataalertService, 
   OrderService, 
-  StaticDataService
+  StaticDataService,
+  DatealertService
 ],
   bootstrap: [ AppComponent ]
 })

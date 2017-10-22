@@ -3,6 +3,7 @@ import * as moment from 'moment';
 
 import { DateRange } from 'app/shared/daterange/daterange';
 import { OrderService } from 'app/shared/order/order.service';
+import { DatealertService } from 'app/shared/datealert/datealert.service';
 
 @Component({
   selector: 'app-referencedate',
@@ -13,7 +14,7 @@ export class ReferencedateComponent implements OnInit {
 
   private daterange: DateRange;
   
-  constructor(private orderservice: OrderService) { }
+  constructor(private orderservice: OrderService, private datealertservice: DatealertService) { }
 
   ngOnInit() {
     this.daterange = new DateRange();
@@ -22,13 +23,16 @@ export class ReferencedateComponent implements OnInit {
 
   private refreshqueries() {
     this.orderservice.gettodaysorders("", this.daterange.startdate, this.daterange.enddate);
-    this.orderservice.getorders("", this.daterange.startdate, this.daterange.enddate);
     this.orderservice.getunmatchedorders("", this.daterange.startdate, this.daterange.enddate);
   }
 
   private today() {
     this.daterange.startdate = moment().startOf('day').toDate();
     this.daterange.enddate = moment().endOf('day').toDate();
+    this.daterange.description = "Today";
+    
+    this.datealertservice.daterange(this.daterange);
+    
     this.refreshqueries();
   }
 
@@ -43,6 +47,9 @@ export class ReferencedateComponent implements OnInit {
 
     this.daterange.startdate = yesterday.startOf('day').toDate();
     this.daterange.enddate = yesterday.endOf('day').toDate();
+    this.daterange.description = "Yesterday";
+
+    this.datealertservice.daterange(this.daterange);
 
     this.refreshqueries();
   }
@@ -50,6 +57,9 @@ export class ReferencedateComponent implements OnInit {
   private thisweek() {
     this.daterange.enddate = new Date();
     this.daterange.startdate = moment().startOf('week').toDate();
+    this.daterange.description = "This Week";
+    
+    this.datealertservice.daterange(this.daterange);
 
     this.refreshqueries();
   }
@@ -57,7 +67,10 @@ export class ReferencedateComponent implements OnInit {
   private thismonth() {
     this.daterange.enddate = new Date();
     this.daterange.startdate = moment().startOf('month').toDate();
+    this.daterange.description = "This Month";
 
+    this.datealertservice.daterange(this.daterange);
+    
     this.refreshqueries();
   }
 }

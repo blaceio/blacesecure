@@ -8,17 +8,10 @@ export class DataalertService {
   private orderssubject = new Subject<any>();
   private unmatchedorderssubject = new Subject<any>();
   private todaysorderssubject = new Subject<any>();
+  private clientlistsubject = new Subject<any>();
   
      constructor() {}
-  
-     orders(message: string) {
-         this.orderssubject.next(message);
-     }
-
-     getOrders(): Observable<any> {
-         return this.orderssubject.asObservable();
-     }
-
+     
      unmatchedorders(message: string) {
         this.unmatchedorderssubject.next(message);
     }
@@ -33,5 +26,13 @@ export class DataalertService {
 
     getTodaysOrders(): Observable<any> {
         return this.todaysorderssubject.asObservable();
+    }
+
+    clientlist(clientlist: string[]) {
+        this.clientlistsubject.next(clientlist);
+    }
+
+    getClientList(): Observable<any> {
+        return this.clientlistsubject.asObservable();
     }
  }

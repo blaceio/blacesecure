@@ -30,14 +30,6 @@ export class OrderService {
             .catch(this.handleError);
     }
 
-    getorders(client: String, startdate: Date, enddate: Date) {
-        this.requestorders(client, startdate, enddate, true, false)
-            .subscribe(
-            response => this.processorders(response),
-            error => this.handleError(<any>error)
-            );
-    }
-
     gettodaysorders(client: String, startdate: Date, enddate: Date) {
         this.requestorders(client, startdate, enddate, true, true)
             .subscribe(
@@ -54,16 +46,21 @@ export class OrderService {
             );
     }
 
-    private processorders(res: any) {
-        this.dataalertservice.orders(res);
-    }
-    
     private processunmatchedorders(res: any) {
         this.dataalertservice.unmatchedorders(res);
     }
 
     private processtodaysorders(res: any) {
         this.dataalertservice.todaysorders(res);
+        
+        let clients = new Array();
+
+        for (let entry of res) {
+            clients.push(entry.client);
+        }
+
+        this.dataalertservice.clientlist(clients);
+
     }
 
     private extractData(res: Response) {
