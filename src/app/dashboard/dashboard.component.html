@@ -123,8 +123,9 @@
                       <div *ngIf="!order.execleg.buy">Curve <strong>Sells</strong> @ <strong>{{order.execleg.price}}</strong></div>
                   </td>
                   <td>
-                      <div class="small text-muted">1500 CHF converted @ 1.876</div>
-                      <strong>1000</strong>
+                      <div *ngIf="order.matched" class="small text-muted">{{(order.pl.plnative * order.quantity) | currency : order.pl.plccy : true : '1.2-2'}} @ {{order.pl.fx | number : '1.2-5'}}</div>
+                      <div *ngIf="!order.matched" class="small text-muted"></div>
+                      <strong *ngIf="order.matched">{{(order.pl.usdpl * order.quantity) | currency : 'USD' : true : '1.2-2'}}</strong>
                   </td>
                 </tr>
               </tbody>

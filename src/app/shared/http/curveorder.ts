@@ -1,4 +1,5 @@
 import { Order } from './order';
+import { PL } from './pl';
 
 export class CurveOrder {
     public orderid: string = "";
@@ -11,6 +12,7 @@ export class CurveOrder {
     public valuedate: Date = new Date();
     public trader: string = "";
     public type: string = "";
+    public pl: PL = new PL();
     public clientleg: Order = new Order();
     public execleg: Order = new Order();
 
@@ -25,6 +27,7 @@ export class CurveOrder {
         this.valuedate = new Date();
         this.trader = "";
         this.type = "";
+        this.pl = new PL();
         this.clientleg = new Order();
         this.execleg = new Order();
     }
