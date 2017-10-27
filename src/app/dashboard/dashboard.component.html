@@ -11,121 +11,103 @@
               <div class="row">
                   <div class="col-sm-6 col-lg-3">
                       <div class="callout callout-info">
-                          <small class="text-muted">$ Volume</small>
+                          <small class="text-muted">Volume</small>
                           <br>
-                          <strong class="h4">{{totalorders}}</strong>
+                          <strong class="h4">{{ordersummary.volume | currency : 'USD' : true : '1.0-0'}}</strong>
                         </div>
                   </div><!--/.col-->
                   <div class="col-sm-6 col-lg-3">
                       <div class="callout callout-warning">
-                          <small class="text-muted">$ Gross Profit</small>
+                          <small class="text-muted">Gross Profit</small>
                           <br>
-                          <strong class="h4">{{totalorders}}</strong>
+                          <strong class="h4">{{ordersummary.gross | currency : 'USD' : true : '1.0-0'}}</strong>
                         </div>
                   </div><!--/.col-->
                   <div class="col-sm-6 col-lg-3">
                       <div class="callout callout-danger">
-                          <small class="text-muted">$ Broker Fees</small>
+                          <small class="text-muted">Venue Fees</small>
                           <br>
-                          <strong class="h4">{{totalorders}}</strong>
+                          <strong class="h4">{{ordersummary.fees | currency : 'USD' : true : '1.0-0'}}</strong>
                         </div>
                   </div><!--/.col-->
                   <div class="col-sm-6 col-lg-3">
                       <div class="callout callout-success">
-                          <small class="text-muted">$ Net Profit</small>
+                          <small class="text-muted">Net Profit</small>
                           <br>
-                          <strong class="h4">{{totalorders}}</strong>
+                          <strong class="h4">{{ordersummary.net | currency : 'USD' : true : '1.0-0'}}</strong>
                         </div>
                   </div><!--/.col-->
                 </div><!--/.row-->
-
+<br>
                     <ul class="horizontal-bars">
-                        <li>
+                        <li *ngFor="let summary of ordersummary.clientsummary">
                           <div class="title">
-                            Omega
+                              {{summary.client}}
                           </div>
                           <div class="bars">
                             <div class="progress progress-xs">
-                              <div class="progress-bar bg-info" role="progressbar" style="width: 34%" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+                              <div class="progress-bar bg-info" role="progressbar" [style.width.%]="summary.volume" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="progress progress-xs">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar bg-success" role="progressbar" [style.width.%]="summary.profit" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </div>
                         </li>
-                        <li>
-                        <div class="title">
-                              Capstone
-                            </div>
-                            <div class="bars">
-                              <div class="progress progress-xs">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 34%" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                              <div class="progress progress-xs">
-                                  <div class="progress-bar bg-success" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </div>
-                          </li>
                         <li class="legend">
                           <span class="badge badge-pill badge-info"></span> <small>Volume</small> &nbsp; <span class="badge badge-pill badge-success"></span> <small>Net Profit</small>
                         </li>
                       </ul>
-
             <br>
             <table class="table table-hover table-outline mb-0 hidden-sm-down">
               <thead class="thead-default">
                 <tr>
                   <th class="text-center">Matched</th>
-                  <th>Type</th>
                   <th>Pair</th>
                   <th>Activity</th>
-                  <th>Client</th>
-                  <th>Trader</th>
                   <th>Notional</th>
                   <th>Client Leg</th>
                   <th>Curve Leg</th>
-                  <th>Profit</th>
+                  <th>Gross</th>
+                  <th>Net</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let order of todaysorders">
+                <tr *ngFor="let order of ordersummary.orders">
                     <td class="text-center">
                         <i *ngIf="order.matched" class="fa fa-thumbs-o-up text-success" style="font-size:24px"></i>
                         <i *ngIf="!order.matched" class="fa fa-thumbs-o-down text-danger" style="font-size:24px"></i>
                       </td>
                   <td>
-                    <div>{{order.type}}</div>
-                  </td>
-                  <td>
+                      <div class="small text-muted">{{order.type}}</div>
                       <div>{{order.pair}}</div>
                   </td>
                   <td>
-                      <div class="small text-muted">Traded through FlexTrade</div>
+                      <div class="small text-muted">FlexTrade</div>
                       <strong>{{order.tradedate | amCalendar}}</strong>
                   </td>
                   <td>
-                      <div>{{order.client}}</div>
-                  </td>
-                  <td>
-                      <div>{{order.trader}}</div>
-                  </td>
-                  <td>
-                      <div>{{order.quantity}}</div>
+                      <div>{{order.quantity }}</div>
                   </td>
                   <td>
                     <div *ngIf="order.clientleg">
+                        <div class="small text-muted">{{order.trader}}</div>
                         <div *ngIf="order.clientleg.buy">{{order.client}} <strong>Buys</strong> @ <strong>{{order.clientleg.price}}</strong></div>
                         <div *ngIf="!order.clientleg.buy">{{order.client}} <strong>Sells</strong> @ <strong>{{order.clientleg.price}}</strong></div>
                     </div>
                   </td>
                   <td>
+                      <div class="small text-muted">Craig</div>
                       <div *ngIf="order.execleg.buy">Curve <strong>Buys</strong> @ <strong>{{order.execleg.price}}</strong></div>
                       <div *ngIf="!order.execleg.buy">Curve <strong>Sells</strong> @ <strong>{{order.execleg.price}}</strong></div>
                   </td>
                   <td>
-                      <div *ngIf="order.matched" class="small text-muted">{{(order.pl.plnative * order.quantity) | currency : order.pl.plccy : true : '1.2-2'}} @ {{order.pl.fx | number : '1.2-5'}}</div>
+                      <div *ngIf="order.matched" class="small text-muted">{{(order.pl.plnative * order.quantity) | currency : order.pl.plccy : true : '1.0-0'}} @ {{order.pl.fx | number : '1.2-5'}}</div>
                       <div *ngIf="!order.matched" class="small text-muted"></div>
                       <strong *ngIf="order.matched">{{(order.pl.usdpl * order.quantity) | currency : 'USD' : true : '1.2-2'}}</strong>
+                  </td>
+                  <td>
+                      <div *ngIf="order.matched" class="small text-muted">{{order.pl.costs | currency : 'USD' : true : '1.0-0'}}</div>
+                      <strong *ngIf="order.matched" >{{order.pl.net | currency : 'USD' : true : '1.2-2'}}</strong>
                   </td>
                 </tr>
               </tbody>

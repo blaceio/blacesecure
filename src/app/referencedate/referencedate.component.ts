@@ -23,7 +23,6 @@ export class ReferencedateComponent implements OnInit {
 
   private refreshqueries() {
     this.orderservice.gettodaysorders("", this.daterange.startdate, this.daterange.enddate);
-    this.orderservice.getunmatchedorders("", this.daterange.startdate, this.daterange.enddate);
   }
 
   private today() {

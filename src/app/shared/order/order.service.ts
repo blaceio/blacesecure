@@ -24,12 +24,6 @@ export class OrderService {
             .catch(this.handleError);
     }
 
-    requestunmatchedorders(): Observable<Array<CurveOrder>> {
-        return this.http.get(this.staticdataservice.getunmatchedordersrequesturl())
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
     gettodaysorders(client: String, startdate: Date, enddate: Date) {
         this.requestorders(client, startdate, enddate, true, true)
             .subscribe(
@@ -37,19 +31,6 @@ export class OrderService {
             error => this.handleError(<any>error)
             );
     }
-
-    getunmatchedorders(client: String, startdate: Date, enddate: Date) {
-        this.requestorders(client, startdate, enddate, false, false)
-            .subscribe(
-            response => this.processunmatchedorders(response),
-            error => this.handleError(<any>error)
-            );
-    }
-
-    private processunmatchedorders(res: any) {
-        this.dataalertservice.unmatchedorders(res);
-    }
-
     private processtodaysorders(res: any) {
         this.dataalertservice.todaysorders(res);
         
