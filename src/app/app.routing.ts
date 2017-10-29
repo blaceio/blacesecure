@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'app/shared';
 import { LoginComponent } from 'app/login/login.component';
 import { DashboardComponent } from 'app/dashboard/dashboard.component';
-import { ClientsummaryComponent } from 'app/clientsummary/clientsummary.component';
+import { UnmatchedComponent } from 'app/unmatched/unmatched.component';
 
 // Import Containers
 import {
@@ -34,8 +34,8 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'clientsummary',
-        component: ClientsummaryComponent,
+        path: 'unmatchedorders',
+        component: UnmatchedComponent,
         canActivate: [AuthGuard]
       },
       {

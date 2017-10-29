@@ -5,7 +5,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from "ngx-bootstrap";
-import { TypeaheadModule } from "ngx-bootstrap/typeahead";
+import { TypeaheadModule } from "ngx-bootstrap";
 
 import { MomentModule } from 'angular2-moment';
 
@@ -79,7 +79,8 @@ import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './alert/alert.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReferencedateComponent } from './referencedate/referencedate.component';
-import { ClientsummaryComponent } from './clientsummary/clientsummary.component';
+import { UnmatchedComponent } from './unmatched/unmatched.component';
+import { ClientinputComponent } from './clientinput/clientinput.component';
 
 @NgModule({
   imports: [
@@ -106,7 +107,8 @@ import { ClientsummaryComponent } from './clientsummary/clientsummary.component'
     AlertComponent,
     DashboardComponent,
     ReferencedateComponent,
-    ClientsummaryComponent
+    UnmatchedComponent,
+    ClientinputComponent
   ],
   providers: [{
     provide: LocationStrategy,

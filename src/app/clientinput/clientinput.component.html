@@ -1,0 +1,7 @@
+<div class="input-group mb-3">
+    <span class="input-group-addon"><i class="icon-people"></i></span>
+    <select id="select" name="select" class="form-control form-control-sm" (change)="refresh($event.target.value)">
+        <option value="">All Clients...</option>
+        <option *ngFor="let c of clientlist" value="{{c}}">{{c}}</option>
+      </select>
+</div>

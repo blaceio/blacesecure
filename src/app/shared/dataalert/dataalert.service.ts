@@ -6,20 +6,28 @@ import { Subject } from 'rxjs/Subject';
 export class DataalertService {
   
   private orderssubject = new Subject<any>();
-  private todaysorderssubject = new Subject<any>();
+  private unmatchedorderssubject = new Subject<any>();
   private clientlistsubject = new Subject<any>();
   
-     constructor() {}
+    constructor() {}
      
-    todaysorders(message: string) {
-        this.todaysorderssubject.next(message);
+    orders(message: string) {
+        this.orderssubject.next(message);
     }
 
-    getTodaysOrders(): Observable<any> {
-        return this.todaysorderssubject.asObservable();
+    getOrders(): Observable<any> {
+        return this.orderssubject.asObservable();
     }
 
-    clientlist(clientlist: string[]) {
+    unmatchedorders(message: string) {
+        this.unmatchedorderssubject.next(message);
+    }
+
+    getUnmatchedOrders(): Observable<any> {
+        return this.unmatchedorderssubject.asObservable();
+    }
+
+    clientlist(clientlist: Set<string>) {
         this.clientlistsubject.next(clientlist);
     }
 

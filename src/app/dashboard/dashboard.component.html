@@ -1,11 +1,11 @@
 <app-alert></app-alert>
+<app-clientinput></app-clientinput>
  <div class="animated fadeIn">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            Orders {{daterange.description}} 
-            <p class="text-danger" *ngIf="totalunmatched > 0">Please note the unmatched orders are <strong>not</strong> included in the P&amp;L summaries.</p>
+            <strong>Orders {{daterange.description}}</strong>
           </div>
           <div class="card-block">
               <div class="row">
@@ -38,18 +38,16 @@
                         </div>
                   </div><!--/.col-->
                 </div><!--/.row-->
-<br>
+                  <br>
                     <ul class="horizontal-bars">
                         <li *ngFor="let summary of ordersummary.clientsummary">
-                          <div class="title">
-                              {{summary.client}}
-                          </div>
+                          <div class="title">{{summary.client}}</div>
                           <div class="bars">
                             <div class="progress progress-xs">
-                              <div class="progress-bar bg-info" role="progressbar" [style.width.%]="summary.volume" aria-valuemin="0" aria-valuemax="100"></div>
+                              <div title="{{summary.volume | currency : 'USD' : true : '1.0-0'}}" class="progress-bar bg-info" role="progressbar" [style.width.%]="summary.volumepercent" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                             <div class="progress progress-xs">
-                                <div class="progress-bar bg-success" role="progressbar" [style.width.%]="summary.profit" aria-valuemin="0" aria-valuemax="100"></div>
+                              <div title="{{summary.profit | currency : 'USD' : true : '1.0-0'}}" class="progress-bar bg-success" role="progressbar" [style.width.%]="summary.profitpercent" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </div>
                         </li>
@@ -62,10 +60,10 @@
               <thead class="thead-default">
                 <tr>
                   <th class="text-center">Matched</th>
-                  <th>Pair</th>
                   <th>Activity</th>
-                  <th>Notional</th>
+                  <th>Pair</th>
                   <th>Client Leg</th>
+                  <th>Client Sees</th>
                   <th>Curve Leg</th>
                   <th>Gross</th>
                   <th>Net</th>
@@ -78,27 +76,26 @@
                         <i *ngIf="!order.matched" class="fa fa-thumbs-o-down text-danger" style="font-size:24px"></i>
                       </td>
                   <td>
+                      <div class="small text-muted">{{order.tradedate | amDateFormat:'DD.MM.YYYY'}} - FlexTrade</div>
+                      <strong>{{order.tradedate | amCalendar}}</strong>
+                  </td>
+                  <td>
                       <div class="small text-muted">{{order.type}}</div>
                       <div>{{order.pair}}</div>
                   </td>
                   <td>
-                      <div class="small text-muted">FlexTrade</div>
-                      <strong>{{order.tradedate | amCalendar}}</strong>
-                  </td>
-                  <td>
-                      <div>{{order.quantity }}</div>
-                  </td>
-                  <td>
                     <div *ngIf="order.clientleg">
                         <div class="small text-muted">{{order.trader}}</div>
-                        <div *ngIf="order.clientleg.buy">{{order.client}} <strong>Buys</strong> @ <strong>{{order.clientleg.price}}</strong></div>
-                        <div *ngIf="!order.clientleg.buy">{{order.client}} <strong>Sells</strong> @ <strong>{{order.clientleg.price}}</strong></div>
+                        <div *ngIf="order.clientleg.buy">{{order.client}} <strong>Buys</strong> {{order.quantity/1000000}}m @ <strong>{{order.clientleg.price}}</strong></div>
+                        <div *ngIf="!order.clientleg.buy">{{order.client}} <strong>Sells</strong> {{order.quantity/1000000}}m @ <strong>{{order.clientleg.price}}</strong></div>
                     </div>
                   </td>
                   <td>
+                      <div contenteditable (focusout)="updateorder(order)">{{order.clientleg.curveprice}}</div>
+                  <td>
                       <div class="small text-muted">Craig</div>
-                      <div *ngIf="order.execleg.buy">Curve <strong>Buys</strong> @ <strong>{{order.execleg.price}}</strong></div>
-                      <div *ngIf="!order.execleg.buy">Curve <strong>Sells</strong> @ <strong>{{order.execleg.price}}</strong></div>
+                      <div *ngIf="order.execleg.buy">Curve <strong>Buys</strong> {{order.quantity/1000000}}m @ <strong>{{order.execleg.price}}</strong></div>
+                      <div *ngIf="!order.execleg.buy">Curve <strong>Sells</strong> {{order.quantity/1000000}}m @ <strong>{{order.execleg.price}}</strong></div>
                   </td>
                   <td>
                       <div *ngIf="order.matched" class="small text-muted">{{(order.pl.plnative * order.quantity) | currency : order.pl.plccy : true : '1.0-0'}} @ {{order.pl.fx | number : '1.2-5'}}</div>

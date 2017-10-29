@@ -4,47 +4,48 @@
      <div class="col-md-12">
        <div class="card">
          <div class="card-header">
-          Orders {{daterange.description}} 
+           <strong>Unmatched Orders {{daterange.description}}</strong>
          </div>
          <div class="card-block">
            <table class="table table-hover table-outline mb-0 hidden-sm-down">
              <thead class="thead-default">
                <tr>
-                 <th>Type</th>
+                 <th class="text-center">Matched</th>
                  <th>Pair</th>
                  <th>Activity</th>
-                 <th>Client</th>
-                 <th>Trader</th>
                  <th>Notional</th>
                  <th>Client Leg</th>
+                 <th>Curve Leg</th>
                </tr>
              </thead>
              <tbody>
-               <tr *ngFor="let order of todaysorders">
+               <tr *ngFor="let order of ordersummary.orders">
+                   <td class="text-center">
+                       <i *ngIf="order.matched" class="fa fa-thumbs-o-up text-success" style="font-size:24px"></i>
+                       <i *ngIf="!order.matched" class="fa fa-thumbs-o-down text-danger" style="font-size:24px"></i>
+                     </td>
                  <td>
-                   <div>{{order.type}}</div>
-                 </td>
-                 <td>
+                     <div class="small text-muted">{{order.type}}</div>
                      <div>{{order.pair}}</div>
                  </td>
                  <td>
-                     <div class="small text-muted">Traded through FlexTrade</div>
+                     <div class="small text-muted">FlexTrade</div>
                      <strong>{{order.tradedate | amCalendar}}</strong>
-                   </td>
-                 <td>
-                     <div>{{order.client}}</div>
                  </td>
                  <td>
-                     <div>{{order.trader}}</div>
-                 </td>
-                 <td>
-                     <div>{{order.quantity}}</div>
+                     <div>{{order.quantity }}</div>
                  </td>
                  <td>
                    <div *ngIf="order.clientleg">
+                       <div class="small text-muted">{{order.trader}}</div>
                        <div *ngIf="order.clientleg.buy">{{order.client}} <strong>Buys</strong> @ <strong>{{order.clientleg.price}}</strong></div>
                        <div *ngIf="!order.clientleg.buy">{{order.client}} <strong>Sells</strong> @ <strong>{{order.clientleg.price}}</strong></div>
                    </div>
+                 </td>
+                 <td>
+                     <div class="small text-muted">Craig</div>
+                     <div *ngIf="order.execleg.buy">Curve <strong>Buys</strong> @ <strong>{{order.execleg.price}}</strong></div>
+                     <div *ngIf="!order.execleg.buy">Curve <strong>Sells</strong> @ <strong>{{order.execleg.price}}</strong></div>
                  </td>
                </tr>
              </tbody>
