@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong>Orders {{daterange.description}}</strong>
+            <strong>{{totalorders}} Matched Orders {{daterange.description}}</strong>
           </div>
           <div class="card-block">
               <div class="row">
@@ -91,7 +91,7 @@
                     </div>
                   </td>
                   <td>
-                      <div contenteditable (focusout)="updateorder(order)">{{order.clientleg.curveprice}}</div>
+                      <div contenteditable (focusout)="updateorder($event, order)">{{order.clientleg.curveprice}}</div>
                   <td>
                       <div class="small text-muted">Craig</div>
                       <div *ngIf="order.execleg.buy">Curve <strong>Buys</strong> {{order.quantity/1000000}}m @ <strong>{{order.execleg.price}}</strong></div>

@@ -24,6 +24,16 @@ export class OrderService {
             .catch(this.handleError);
     }
 
+    updateorder(orderid: string, tradedate: Date, curveprice: number): Observable<String> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post(this.staticdataservice.getcurvepriceupdateurl(),
+            { orderid, tradedate, curveprice  }, options)
+            .map(this.donothing)
+            .catch(this.handleError);
+    }
+
     getorders(client: String, startdate: Date, enddate: Date, matched: boolean) {
         this.requestorders(client, startdate, enddate, matched)
             .subscribe(
@@ -39,9 +49,20 @@ export class OrderService {
             error => this.handleError(<any>error)
             );
     }
+
+    sendupdateorder(curveorder: CurveOrder) {
+        this.updateorder(curveorder.orderid, curveorder.tradedate, curveorder.clientleg.curveprice)
+            .subscribe(
+            response => this.processupdate(response),
+            error => this.handleError(<any>error)
+            );
+    }
     
     private processorders(res: any) {
         this.dataalertservice.orders(res);
+    }
+
+    private processupdate(res: any) {
     }
 
     private processunmatchedorders(res: any) {
@@ -53,6 +74,9 @@ export class OrderService {
         return body || {};
     }
 
+    private donothing(res: Response) {
+    }
+    
     private handleError(error: Response | any) {
         
         let errMsg: string;

@@ -8,6 +8,7 @@ import { OrderSummary } from 'app/shared/http/ordersummary';
 import { DatealertService } from 'app/shared/datealert/datealert.service';
 import { DateRange } from 'app/shared/daterange/daterange';
 import { CurveOrder } from 'app/shared/http/curveorder';
+import { OrderService } from 'app/shared/order/order.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -17,9 +18,10 @@ import { CurveOrder } from 'app/shared/http/curveorder';
 export class DashboardComponent implements OnInit {
 
     private ordersummary: OrderSummary;
+    private totalorders: number;
     private daterange: DateRange;
 
-    constructor(private dataalertservice: DataalertService, private datealertservice: DatealertService) { }
+    constructor(private orderservice: OrderService, private dataalertservice: DataalertService, private datealertservice: DatealertService) { }
 
     ngOnInit() {
         this.ordersummary = new OrderSummary();
@@ -34,10 +36,13 @@ export class DashboardComponent implements OnInit {
 
     private reactorders(orders: OrderSummary) {
         this.ordersummary = orders;
+        this.totalorders = orders.orders.length;
     }
 
-    private updateorder(order: CurveOrder) {
-        let test = 1;
+    private updateorder(event: any, order: CurveOrder) {
+        let newprice = event.target.innerText;
+        order.clientleg.curveprice = +newprice;
+        this.orderservice.sendupdateorder(order);
     }
 
 }
