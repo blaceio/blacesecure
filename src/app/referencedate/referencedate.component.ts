@@ -73,4 +73,14 @@ export class ReferencedateComponent implements OnInit {
     
     this.refreshqueries();
   }
+
+  private thisquarter() {
+    this.daterange.enddate = new Date();
+    this.daterange.startdate = moment().startOf('quarter').toDate();
+    this.daterange.description = "This Quarter";
+
+    this.datealertservice.daterange(this.daterange);
+    
+    this.refreshqueries();
+  }
 }

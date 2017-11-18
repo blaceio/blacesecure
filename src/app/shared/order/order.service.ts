@@ -88,6 +88,7 @@ export class OrderService {
             errMsg = error.message ? error.message : error.toString();
         }
         
+        console.log(errMsg);
         this.alertservice.danger(errMsg);
         return Observable.throw(errMsg);
     }
